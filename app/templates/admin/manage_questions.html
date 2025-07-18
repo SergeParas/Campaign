@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Gestion des questions{% endblock %}
+{% block content %}
+<h2>Questions de "{{ campaign.title }}"</h2>
+<div class="mb-3">
+    <a class="btn btn-success" href="{{ url_for('admin.add_question', campaign_id=campaign.id) }}">Ajouter une nouvelle question</a>
+    <a class="btn btn-secondary" href="{{ url_for('admin.dashboard') }}">Retour Dashboard</a>
+</div>
+
+<ul class="list-group">
+{% for question in campaign.questions %}
+  <li class="list-group-item d-flex align-items-center">
+    <div class="flex-fill">
+      Q{{ loop.index }}. {{ question.text }}
+    </div>
+    <form method="post" action="{{ url_for('admin.delete_question', campaign_id=campaign.id, question_id=question.id) }}" style="margin:0 2px;display:inline;" onsubmit="return confirm('Supprimer cette question ?');">
+      <button class="btn btn-sm btn-danger">Supprimer</button>
+    </form>
+    <a class="btn btn-sm btn-outline-primary ms-1" href="{{ url_for('admin.edit_question', campaign_id=campaign.id, question_id=question.id) }}">Modifier</a>
+  </li>
+{% else %}
+  <li class="list-group-item text-muted">Aucune question pour l’instant.</li>
+{% endfor %}
+</ul>
+{% endblock %}

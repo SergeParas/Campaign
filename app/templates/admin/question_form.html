@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Ajouter une question{% endblock %}
+{% block content %}
+<h2>Ajouter une question à "{{ campaign.title }}"</h2>
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">
+    {{ form.text.label }} {{ form.text(class_="form-control") }}
+  </div>
+  {{ form.submit(class_="btn btn-primary") }}
+</form>
+{% endblock %}

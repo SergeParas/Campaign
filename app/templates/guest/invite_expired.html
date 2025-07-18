@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Campagne non accessible{% endblock %}
+{% block content %}
+<div class="alert alert-warning mt-4">
+  <h3>Campagne inaccessible</h3>
+  <p>La campagne <b>{{ campaign.title }}</b> n'est pas ouverte à la participation à ce moment.</p>
+  {% if campaign.valid_from %}
+    <p>Ouverture : {{ campaign.valid_from.strftime('%d/%m/%Y %H:%M') }}</p>
+  {% endif %}
+  {% if campaign.valid_until %}
+    <p>Clôture : {{ campaign.valid_until.strftime('%d/%m/%Y %H:%M') }}</p>
+  {% endif %}
+  <a href="{{ url_for('guest.survey_list') }}" class="btn btn-secondary mt-2">Retour aux campagnes</a>
+</div>
+{% endblock %}

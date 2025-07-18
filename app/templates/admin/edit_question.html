@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Modifier une question{% endblock %}
+{% block content %}
+<h2>Modifier la question</h2>
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">
+    {{ form.text.label }} {{ form.text(class_="form-control") }}
+  </div>
+  {{ form.submit(class_="btn btn-primary") }}
+</form>
+<a href="{{ url_for('admin.manage_questions', campaign_id=campaign.id) }}" class="btn btn-link mt-3">Annuler</a>
+{% endblock %}

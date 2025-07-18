@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Tableau de bord administrateur{% endblock %}
+{% block content %}
+<h2>Mes Campagnes</h2>
+<a class="btn btn-success mb-2" href="{{ url_for('admin.new_campaign') }}">Nouvelle campagne</a>
+<ul class="list-group">
+{% for campaign in campaigns %}
+<li class="list-group-item">
+  <b>{{ campaign.title }}</b>
+  <div><em>{{ campaign.description }}</em></div>
+  <div>
+    <small>
+      {% if campaign.valid_from %}
+        <span title="Ouverture"><i class="bi bi-calendar2-plus"></i> {{ campaign.valid_from.strftime('%d/%m/%Y %H:%M') }}</span>
+      {% else %}
+        <span>Immédiatement</span>
+      {% endif %}
+      - 
+      {% if campaign.valid_until %}
+        <span title="Clôture"><i class="bi bi-calendar2-x"></i> {{ campaign.valid_until.strftime('%d/%m/%Y %H:%M') }}</span>
+      {% else %}
+        <span>Pas de clôture</span>
+      {% endif %}
+    </small>
+  </div>
+  <div class="mt-1">
+    <span class="badge bg-info">URL d'invitation&nbsp;:</span> 
+    <input class="form-control form-control-sm d-inline-block" value="{{ request.host_url ~ 'guest/invite/' ~ campaign.token }}" readonly style="width:320px;max-width:100%;">
+  </div>
+</li>
+  <div class="mt-2">
+    <a class="btn btn-sm btn-outline-primary" href="{{ url_for('admin.add_question', campaign_id=campaign.id) }}">Ajouter Question</a>
+    <a class="btn btn-sm btn-outline-secondary ms-2" href="{{ url_for('admin.manage_questions', campaign_id=campaign.id) }}">Gérer questions</a>
+    <a class="btn btn-sm btn-outline-info ms-2" href="{{ url_for('admin.campaign_inspect', campaign_id=campaign.id) }}">Voir réponses/statistiques</a>
+  </div>
+</li>
+{% else %}
+  <li class="list-group-item">Aucune campagne créée.</li>
+{% endfor %}
+</ul>
+<a class="btn btn-link mt-3" href="{{ url_for('admin.logout') }}">Déconnexion</a>
+{% endblock %}

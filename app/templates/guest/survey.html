@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Questionnaire "{{ campaign.title }}"{% endblock %}
+{% block content %}
+<h2>{{ campaign.title }}</h2>
+<form method="post">
+  <div class="mb-3">
+    <label>Votre nom (optionnel): <input class="form-control" name="guest_identifier"></label>
+  </div>
+  {% for q in campaign.questions %}
+    <div class="mb-3">
+      <label>{{ q.text }}</label>
+      <input class="form-control" type="text" name="question_{{ q.id }}">
+    </div>
+  {% endfor %}
+  <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>
+{% endblock %}

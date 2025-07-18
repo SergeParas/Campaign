@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Participer à une campagne{% endblock %}
+{% block content %}
+<h2>Campagnes ouvertes à la participation</h2>
+<ul class="list-group">
+{% for campaign in campaigns %}
+<li class="list-group-item">
+  <b>{{ campaign.title }}</b>: {{ campaign.description }}
+  <a class="btn btn-sm btn-outline-success float-end" href="{{ url_for('guest.fill_survey', campaign_id=campaign.id) }}">Participer</a>
+</li>
+{% else %}
+  <li class="list-group-item">Aucune campagne actuellement.</li>
+{% endfor %}
+</ul>
+{% endblock %}
